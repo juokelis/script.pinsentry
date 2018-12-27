@@ -1106,14 +1106,16 @@ if __name__ == '__main__':
     json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Addons.GetAddonDetails", "params": { "addonid": "repository.urepo", "properties": ["enabled", "broken", "name", "author"]  }, "id": 1}')
     json_response = json.loads(json_query)
 
-    if ("result" in json_response) and ('addon' in json_response['result']):
-        addonItem = json_response['result']['addon']
-        if (addonItem['enabled'] is True) and (addonItem['broken'] is False) and (addonItem['type'] == 'xbmc.addon.repository') and (addonItem['addonid'] == 'repository.urepo'):
-            displayNotice = False
-
-    if displayNotice:
-        xbmc.executebuiltin('Notification("URepo Repository Required","www.urepo.org",10000,%s)' % ADDON.getAddonInfo('icon'))
-    else:
+# as long as there is no repository:
+#     if ("result" in json_response) and ('addon' in json_response['result']):
+#         addonItem = json_response['result']['addon']
+#         if (addonItem['enabled'] is True) and (addonItem['broken'] is False) and (addonItem['type'] == 'xbmc.addon.repository') and (addonItem['addonid'] == 'repository.urepo'):
+#             displayNotice = False
+# 
+#     if displayNotice:
+#         xbmc.executebuiltin('Notification("URepo Repository Required","www.urepo.org",10000,%s)' % ADDON.getAddonInfo('icon'))
+#     else:
+    if True:
         loopsUntilUserControlCheck = 0
         while (not xbmc.abortRequested):
             # There are two types of startup, the first is a genuine startup when

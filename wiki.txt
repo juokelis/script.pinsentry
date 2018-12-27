@@ -11,7 +11,7 @@ After install you need to:
 * Enable which videos you want the pin to be displayed for (Either via Settings, Programs->PinSenty or Videos->Addons->PinSentry)
 <br />
 <br />
-== Pin Contol ==
+== Pin Control ==
 Whenever a user selects an item that has been protected by PinSentry they will be prompted with a dialog like the following:
 <br />
 [[https://github.com/robwebset/repository.robwebset/raw/master/script.pinsentry/images/PinSentry-PinDialog1.JPG|200px]]
