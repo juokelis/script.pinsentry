@@ -69,7 +69,7 @@ class PinSentry():
         return PinSentry.pinLevelCached
 
     @staticmethod
-    def promptUserForPin(requiredLevel=1):
+    def promptUserForPin(requiredLevel=1, showBackgroundLonger = False):
         userHasAccess = True
 
         # Set the background
@@ -81,15 +81,20 @@ class PinSentry():
         numberpad = NumberPad.createNumberPad()
         numberpad.doModal()
 
-        # Remove the background if we had one
-        if background is not None:
-            background.close()
-            del background
-
         # Get the code that the user entered
         enteredPin = numberpad.getPin()
         del numberpad
 
+        # quick workaround for not showing the pin in the time line when entering it
+        # TODO: make it configureable?
+        if showBackgroundLonger: 
+            xbmc.sleep(3000)
+        
+        # Remove the background if we had one
+        if background is not None:
+            background.close()
+            del background
+            
         # Find out what level this pin gives access to
         # This will be the highest level
         pinMatchLevel = Settings.getSecurityLevelForPin(enteredPin)
@@ -367,7 +372,7 @@ class PinSentryPlayer(xbmc.Player):
             log("PinSentryPlayer: Paused video to check if OK to play")
 
         # Prompt the user for the pin, returns True if they knew it
-        if PinSentry.promptUserForPin(securityLevel):
+        if PinSentry.promptUserForPin(securityLevel, True):
             log("PinSentryPlayer: Resuming video")
             # Pausing again will start the video playing again
             if muted:
@@ -497,7 +502,7 @@ class NavigationRestrictions():
             return
 
         # Prompt the user for the pin, returns True if they knew it
-        if PinSentry.promptUserForPin(securityLevel):
+        if PinSentry.promptUserForPin(securityLevel, True):
             log("NavigationRestrictions: Allowed access to movie set %s" % moveSetName)
         else:
             log("NavigationRestrictions: Not allowed access to movie set %s which has security level %d" % (moveSetName, securityLevel))
@@ -1102,9 +1107,9 @@ if __name__ == '__main__':
     navRestrictions = NavigationRestrictions()
     pvrMonitor = PvrMonitor()
 
-    displayNotice = True
-    json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Addons.GetAddonDetails", "params": { "addonid": "repository.urepo", "properties": ["enabled", "broken", "name", "author"]  }, "id": 1}')
-    json_response = json.loads(json_query)
+#     displayNotice = True
+#     json_query = xbmc.executeJSONRPC('{"jsonrpc": "2.0", "method": "Addons.GetAddonDetails", "params": { "addonid": "repository.urepo", "properties": ["enabled", "broken", "name", "author"]  }, "id": 1}')
+#     json_response = json.loads(json_query)
 
 # as long as there is no repository:
 #     if ("result" in json_response) and ('addon' in json_response['result']):

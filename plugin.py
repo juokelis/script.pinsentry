@@ -204,23 +204,29 @@ class MenuNavigator():
             except:
                 pass
 
+            prefix = ''
             # Check if the classification is restricting this item
             isBlockedByClassification = False
             if 'mpaa' in item:
                 if item['mpaa'] not in [None, ""]:
+                    prefix = 'M'
                     isBlockedByClassification = True
 
             # Add a tick if security is set
             if item['securityLevel'] != 0:
                 li.setInfo('video', {'PlayCount': 1})
+                prefix += 'S'
                 # Not the best display format - but the only way that I can get a number to display
                 # In the list, the problem is it will display 01:00 - but at least it's something
                 if Settings.showSecurityLevelInPlugin():
                     li.setInfo('video', {'Duration': item['securityLevel']})
+
             elif Settings.isHighlightClassificationUnprotectedVideos():
                 # If the user wishes to see which files are not protected by one of the rules
                 # currently applied, we put the play signal next to them
+                prefix += 'U'
                 if not isBlockedByClassification:
+                    prefix = 'C'
                     li.setProperty("TotalTime", "")
                     li.setProperty("ResumeTime", "1")
 
@@ -229,10 +235,15 @@ class MenuNavigator():
                 # This is the case where the user has forced access to be allowed, this
                 # is useful if you have classification enabled and you want to allow a
                 # given video for a classification to be unprotected
+                prefix = 'O'
                 li.setProperty("TotalTime", "")
                 li.setProperty("ResumeTime", "1")
 
             li.setProperty("Fanart_Image", item['fanart'])
+            if prefix:
+                prefix = '(' + prefix + ') '
+                 
+            li.setLabel(prefix + title)
             url = self._build_url({'mode': 'setsecurity', 'level': item['securityLevel'], 'type': target, 'title': title, 'id': dbid, 'classificationBlocked': str(isBlockedByClassification)})
             xbmcplugin.addDirectoryItem(handle=self.addon_handle, url=url, listitem=li, isFolder=False)
 
