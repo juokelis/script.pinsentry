@@ -12,7 +12,7 @@ CWD = ADDON.getAddonInfo('path').decode("utf-8")
 
 # Class to set the background while a pin is prompted for
 class Background(xbmcgui.WindowXML):
-    BACKGOUND_IMAGE_ID = 3004
+    BACKGROUND_IMAGE_ID = 3004
 
     @staticmethod
     def createBackground():
@@ -29,5 +29,5 @@ class Background(xbmcgui.WindowXML):
 
         if bgImage is not None:
             log("Background: Setting background image to %s" % bgImage)
-            bgImageCtrl = self.getControl(Background.BACKGOUND_IMAGE_ID)
+            bgImageCtrl = self.getControl(Background.BACKGROUND_IMAGE_ID)
             bgImageCtrl.setImage(bgImage)

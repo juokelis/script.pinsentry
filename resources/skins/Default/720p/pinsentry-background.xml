@@ -7,7 +7,7 @@
 			<posy>0</posy>
 			<width>1280</width>
 			<height>720</height>
-			<texture>screensaver-black.png</texture>
+			<texture>pinsentry-black.png</texture>
 		</control>
 		<control type="image" id="3004">
 			<description>Background Image</description>

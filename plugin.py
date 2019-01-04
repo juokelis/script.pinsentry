@@ -209,13 +209,13 @@ class MenuNavigator():
             isBlockedByClassification = False
             if 'mpaa' in item:
                 if item['mpaa'] not in [None, ""]:
-                    prefix = 'M'
+                    prefix += 'bC '
                     isBlockedByClassification = True
 
             # Add a tick if security is set
             if item['securityLevel'] != 0:
                 li.setInfo('video', {'PlayCount': 1})
-                prefix += 'S'
+                prefix += 's '
                 # Not the best display format - but the only way that I can get a number to display
                 # In the list, the problem is it will display 01:00 - but at least it's something
                 if Settings.showSecurityLevelInPlugin():
@@ -224,9 +224,9 @@ class MenuNavigator():
             elif Settings.isHighlightClassificationUnprotectedVideos():
                 # If the user wishes to see which files are not protected by one of the rules
                 # currently applied, we put the play signal next to them
-                prefix += 'U'
+                prefix += 'u '
                 if not isBlockedByClassification:
-                    prefix = 'C'
+                    prefix += 'nC '
                     li.setProperty("TotalTime", "")
                     li.setProperty("ResumeTime", "1")
 
@@ -235,13 +235,13 @@ class MenuNavigator():
                 # This is the case where the user has forced access to be allowed, this
                 # is useful if you have classification enabled and you want to allow a
                 # given video for a classification to be unprotected
-                prefix = 'O'
+                prefix += 'or '
                 li.setProperty("TotalTime", "")
                 li.setProperty("ResumeTime", "1")
 
             li.setProperty("Fanart_Image", item['fanart'])
             if prefix:
-                prefix = '(' + prefix + ') '
+                prefix = '(' + prefix.strip() + ') '
                  
             li.setLabel(prefix + title)
             url = self._build_url({'mode': 'setsecurity', 'level': item['securityLevel'], 'type': target, 'title': title, 'id': dbid, 'classificationBlocked': str(isBlockedByClassification)})
@@ -650,6 +650,10 @@ class MenuNavigator():
             if numLevels > 1 or classBlocked:
                 # Need to prompt the user to see which pin they are trying to set
                 displayNameList = []
+                
+                # Add the option to allow item always
+                displayNameList.append("%s %s" % (ADDON.getLocalizedString(32211), "-1"))
+
                 # Add the option to turn it off
                 displayNameList.append("%s %s" % (ADDON.getLocalizedString(32211), ADDON.getLocalizedString(32013)))
                 for i in range(1, numLevels + 1):
@@ -667,7 +671,7 @@ class MenuNavigator():
                 select = xbmcgui.Dialog().select(ADDON.getLocalizedString(32001), displayNameList)
 
                 if select != -1:
-                    level = select
+                    level = select - 1 # because first element is now -1 (because of to allow item always)
                     if classBlocked and (select >= (len(displayNameList) - 1)):
                         level = -1
                     log("Setting security level to %d" % level)
@@ -714,7 +718,7 @@ class MenuNavigator():
             self._setBulkSecurity(type, level)
 
         xbmc.executebuiltin("Dialog.Close(busydialog)")
-        xbmc.executebuiltin("Container.Refresh")
+        #xbmc.executebuiltin("Container.Refresh")
 
     # Sets the security details on all the Movies in a given Movie Set
     def _setSecurityOnMoviesInMovieSets(self, setid, level):

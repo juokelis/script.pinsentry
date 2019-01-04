@@ -33,7 +33,8 @@ class PinSentry():
     @staticmethod
     def isPinSentryEnabled():
         # Check if the Pin is set, as no point prompting if it is not
-        if (not Settings.isPinSet()) or (not Settings.isPinActive()):
+        # also check correct level
+        if (not Settings.isPinSet(Settings.getNumberOfLevels())) or (not Settings.isPinActive()):
             return False
         return True
 
