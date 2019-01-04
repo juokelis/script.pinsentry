@@ -718,6 +718,7 @@ class MenuNavigator():
             self._setBulkSecurity(type, level)
 
         xbmc.executebuiltin("Dialog.Close(busydialog)")
+        # longer lists always start from the beginning. crude workaround:
         #xbmc.executebuiltin("Container.Refresh")
 
     # Sets the security details on all the Movies in a given Movie Set
