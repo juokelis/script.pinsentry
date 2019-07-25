@@ -10,4 +10,4 @@ PinSentry is an addon that will allow you to set a pin code that you can then fo
 
 Please read the wiki for more details:
 
-[Add-on:PinSentry](https://github.com/robwebset/script.pinsentry/wiki)
+[Add-on:PinSentry](https://github.com/malvinas2/script.pinsentry/wiki)
