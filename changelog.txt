@@ -1,3 +1,6 @@
+v119.07.25 (2019-07-25)
+- DialogBusy replaced with DialogBusyNoCancel
+
 v100.6.0 (2019-04-24)
 - Remove urepo link
 
