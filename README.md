@@ -1,7 +1,8 @@
 __NOTICE__
 
-__This addon is no longer maintained by me, if you are interested in taking it over then please contact me via the Issues section. (You are welcome to submit it to the official Kodi Repo - just make sure you remove my name from it before you do it)__
+__It did a slight modification to get this addon running in Kodi Leia 18, but I do not maintain it actively. If you are interested in taking it over then please contact me via the Issues section. __
 
+All credits go to He-who-must-not-be-named aka Robwebset ;-)
 
 ![PinSentry](icon.png)
 
