@@ -1,3 +1,6 @@
+v119.07.31 (2019-07-31)
+- changed resolution 720-->1080 within pinsentry-background.xml
+
 v119.07.25 (2019-07-25)
 - DialogBusy replaced with DialogBusyNoCancel
 
