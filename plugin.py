@@ -667,7 +667,7 @@ class MenuNavigator():
             level = forceLevel
 
         # This could take a little time to set the value so show the busy dialog
-        xbmc.executebuiltin("ActivateWindow(busydialog)")
+        xbmc.executebuiltin("ActivateWindow(busydialognocancel)")
 
         if title not in [None, ""]:
             pinDB = PinSentryDB()
@@ -702,7 +702,7 @@ class MenuNavigator():
             # Handle the bulk operations like set All security for the movies
             self._setBulkSecurity(type, level)
 
-        xbmc.executebuiltin("Dialog.Close(busydialog)")
+        xbmc.executebuiltin("Dialog.Close(busydialognocancel)")
         xbmc.executebuiltin("Container.Refresh")
 
     # Sets the security details on all the Movies in a given Movie Set
